@@ -77,3 +77,52 @@ func stringPartitionCount(str: String)  -> Int {
  */
 print(stringPartitionCount(str: "aabddccd"))
 #endif
+
+#if false
+
+// @unknown keyword in switch case
+
+/*
+ The downside of using a "default" case is that the compiler can no longer alert a developer that a particular enum has elements that aren't explicitly handled in the "switch". To remedy this, switch cases will gain a new attribute, "@unknown".
+ */
+
+//Example Shape enum
+
+enum Shape {
+    case circle
+    case squre
+    case rectanlge
+    case qube
+}
+
+let currentShape = Shape.circle
+
+// only default case (No warning for unused case labels):
+
+switch currentShape {
+case .circle:
+    print("Circle")
+case .squre:
+    print("squre")
+// Compiler wont give any warning message for unused cases by using normal default keyword
+default:
+    print("Default Case")
+    
+}
+
+// Switch with @unknown default case (Giving suggestion warning for unused case labels):
+
+switch currentShape {
+case .circle:
+    print("Circle")
+case .squre:
+    print("squre")
+// while using @unknown keyword in front of the default, the compiler will show a warning message for unused cases (only if your enum still having case labels) like "Switch must be exhaustive - Do you want to add missing cases?"
+@unknown default:
+    print("Default Case")
+    
+}
+
+
+
+#endif
