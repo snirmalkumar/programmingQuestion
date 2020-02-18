@@ -40,9 +40,40 @@ func encryption(word: String) -> String {
 }
 
 
-#if true
+#if false
 /* Program 1 : Sample input and output */
 print(encryption(word: "Zoo"))
 print(encryption(word: "Aello 2 all"))
 #endif
 
+/*
+* Program 2 : Maximum String Partition
+* Given a string. the Tas is to find the maximum number P, Such that given string can be partitioned into p contiguous substrig such thatany two adjacent substring must be different
+*more formally S=S1S1...SP and Si != Si+1(0<=i<=p-1)
+* Input str = "aabccd"
+* Output: 4
+ Explanation:we can divide the given string intofour string, like "a", "ab", "c","cd" we ca not divide it more than four parts, if we do then the condotions Si!=Si+1(0<=i<=p-1) will not satisfy
+*/
+
+/* Hint:using datastructures like binary tree and binary search tree will give better solution
+ */
+
+/*
+ */
+func stringPartitionCount(str: String)  -> Int {
+    var partitionArray = [String]()
+    var currentPatitionString = ""
+    for charcter in str {
+        currentPatitionString.append(charcter)
+        if !partitionArray.contains(currentPatitionString) {
+            partitionArray.append(currentPatitionString)
+            currentPatitionString = ""
+        }
+    }
+    return partitionArray.count
+}
+#if true /*
+ sample input and output
+ */
+print(stringPartitionCount(str: "aabddccd"))
+#endif
