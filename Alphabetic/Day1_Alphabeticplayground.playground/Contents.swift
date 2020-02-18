@@ -33,7 +33,7 @@ func encryption(word: String) -> String {
         if vowels.contains(charValue) {
             encryptedWord.append(Character(UnicodeScalar(baseASCIIvalue + (((charASCIIfromBase + 26) - 1) % 26))))
         } else {
-        encryptedWord.append(Character(UnicodeScalar(baseASCIIvalue + ((charASCIIfromBase + 1) % 26))))
+            encryptedWord.append(Character(UnicodeScalar(baseASCIIvalue + ((charASCIIfromBase + 1) % 26))))
         }
     }
     return encryptedWord
@@ -47,18 +47,77 @@ print(encryption(word: "Aello 2 all"))
 #endif
 
 /*
-* Program 2 : Maximum String Partition
-* Given a string. the Tas is to find the maximum number P, Such that given string can be partitioned into p contiguous substrig such thatany two adjacent substring must be different
-*more formally S=S1S1...SP and Si != Si+1(0<=i<=p-1)
-* Input str = "aabccd"
-* Output: 4
- Explanation:we can divide the given string intofour string, like "a", "ab", "c","cd" we ca not divide it more than four parts, if we do then the condotions Si!=Si+1(0<=i<=p-1) will not satisfy
-*/
-
-/* Hint:using datastructures like binary tree and binary search tree will give better solution
+ * Program 2 : Maximum String Partition
  */
 
 /*
+ * Given a string. the Tas is to find the maximum number P, Such that given string
+ * can be partitioned into p contiguous substrig such thatany two adjacent substring
+ * must be different
+ * more formally S=S1S1...SP and Si != Si+1(0<=i<=p-1)
+ *
+ * Input str = "aabccd"
+ * Output: 4
+ *
+ * Explanation:
+ * we can divide the given string intofour string, like "a", "ab", "c","cd".
+ * we ca not divide it more than four parts,
+ * if we do then the condotions Si!=Si+1(0<=i<=p-1) will not satisfy..
+ 
+ Approach:
+ =========
+ 1. Here we only have to focus on the value of P, not upon finding those P substrings.
+ 2. We will solve it greedily, we always check the current string that we have with the previous string that has been taken already.
+ 3. If we found that both of them are same then we will go forward otherwise create a partition here and change the previous track of the string to current string, means we will treat this current string as the previous string for future comparison.
+ => Below is the implementation of above Approach...
+ */
+
+
+
+// Return the count of string
+func maxPartition(str: String) -> Int
+{
+    var  partitionOccurs = 0 /* Will Hold the total partition */
+    
+    // Current will store current string
+    // Previous will store the previous
+    var current = "", previous = ""
+    
+    for charcter in str {
+        
+        current.append(charcter) // Add a character to current string
+        
+        if (current != previous) {
+            
+            // Here we will create a partition and
+            // update the previous string with
+            // current string
+            previous = current;
+            
+            // Now we will clear the current string
+            current = "";
+            
+            // Increment the count of partition.
+            partitionOccurs += 1;
+        }
+    }
+    
+    return partitionOccurs;
+}
+
+#if true
+/*
+ * sample input and output
+ */
+print(maxPartition(str: "aaaa"))
+print(maxPartition(str: "aabccd"))
+#endif
+
+
+/*
+ * Another approach with different result
+ */
+/* Hint:using datastructures like binary tree and binary search tree will give better solution
  */
 func stringPartitionCount(str: String)  -> Int {
     var partitionArray = [String]()
@@ -72,11 +131,16 @@ func stringPartitionCount(str: String)  -> Int {
     }
     return partitionArray.count
 }
-#if true /*
- sample input and output
+#if false
+/*
+ * sample input and output
  */
-print(stringPartitionCount(str: "aabddccd"))
+print(stringPartitionCount(str: "aaaa"))
+print(stringPartitionCount(str: "aabccd"))
 #endif
+
+
+
 
 #if false
 
