@@ -105,7 +105,7 @@ func maxPartition(str: String) -> Int
     return partitionOccurs;
 }
 
-#if true
+#if false
 /*
  * sample input and output
  */
@@ -190,3 +190,37 @@ case .squre:
 
 
 #endif
+
+
+/*
+ * Day 5: Program - String Replace
+ */
+
+/*
+ * Requirement: Given a valid (IPv4) IP address, return a defanged version of that IP address.
+ * A defanged IP address replaces every period "." with "[.]".
+ *
+ * Example 1:
+ * Input: address = "1.1.1.1"
+ * Output: "1[.]1[.]1[.]1"
+ */
+
+
+func stringIPv4PatternReplace(actualString: String, newPattern: String) -> String {
+    let ipPartionStringArray = actualString.split(separator: ".")
+    
+    let filteredResult = ipPartionStringArray.filter { ipPartionString in
+        guard let number = Int(ipPartionString) else { return false }
+        return number >= 0 && number < 256
+    }
+    guard 4 == filteredResult.count else {
+        return "Invalid IP"
+    }
+    return ipPartionStringArray.joined(separator: newPattern)
+}
+
+#if true
+print(stringIPv4PatternReplace(actualString: "1.1.1.1", newPattern: "[.]"))
+print(stringIPv4PatternReplace(actualString: "1a.1.1.1", newPattern: "[.]"))
+#endif
+
